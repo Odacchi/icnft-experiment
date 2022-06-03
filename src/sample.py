@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from ic.agent import *
 from ic.identity import *
 from ic.client import *
@@ -18,30 +20,30 @@ canisters = [
         'name': 'Motokos',
         'id': 'oeee4-qaaaa-aaaak-qaaeq-cai'
     },
-    {
-        'name': 'DSA',
-        'id': '3mttv-dqaaa-aaaah-qcn6q-cai'
-    },
-    {
-        'name': 'OG medals',
-        'id': 'rw623-hyaaa-aaaah-qctcq-cai'
-    },
-    {
-        'name': 'BTC Flowers',
-        'id': 'pk6rk-6aaaa-aaaae-qaazq-cai'
-    },
-    {
-        'name': 'Poked bots',
-        'id': 'bzsui-sqaaa-aaaah-qce2a-cai'
-    },
-    {
-        'name': 'Cronics',
-        'id': 'e3izy-jiaaa-aaaah-qacbq-cai'
-    },
-    {
-        'name': 'ICPunks',
-        'id': 'bxdf4-baaaa-aaaah-qaruq-cai'
-    },
+    # {
+    #     'name': 'DSA',
+    #     'id': '3mttv-dqaaa-aaaah-qcn6q-cai'
+    # },
+    # {
+    #     'name': 'OG medals',
+    #     'id': 'rw623-hyaaa-aaaah-qctcq-cai'
+    # },
+    # {
+    #     'name': 'BTC Flowers',
+    #     'id': 'pk6rk-6aaaa-aaaae-qaazq-cai'
+    # },
+    # {
+    #     'name': 'Poked bots',
+    #     'id': 'bzsui-sqaaa-aaaah-qce2a-cai'
+    # },
+    # {
+    #     'name': 'Cronics',
+    #     'id': 'e3izy-jiaaa-aaaah-qacbq-cai'
+    # },
+    # {
+    #     'name': 'ICPunks',
+    #     'id': 'bxdf4-baaaa-aaaah-qaruq-cai'
+    # },
 
 ]
 
@@ -59,13 +61,20 @@ for c in canisters:
 
     print("Getting collection:", c["name"])
 
+    total = 0
+
     trans = response[0]["value"]
     for i, t in enumerate(trans):
-        price = str(t['_3364572809'] / 100000000)
+        price = t['_3364572809'] / 100000000
         timestamp = t['_1291635725']
+        date = datetime.fromtimestamp(timestamp/1000000000)
         token = t['_338395897']
         seller = t['_1782082687']
         buyer = t['_3136747827']
-        f.write(f"\n{c['name']},{i},{token},{price},,{timestamp},{seller},{buyer}")
+
+        total += price
+        f.write(f"\n{c['name']},{i},{token},{price},,{date},{seller},{buyer}")
+
+    print(f'Total volume: {total} ICP')
 
 f.close()
