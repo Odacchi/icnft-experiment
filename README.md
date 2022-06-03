@@ -30,7 +30,7 @@ poetry install
 cp .env.dist .env
 ```
 
-コピー後、コピー先の設定ファイル（.env, config.yml）を記述する。
+コピー後、コピー先の設定ファイル（.env）を記述する。
 
 ### 起動
 
