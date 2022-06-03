@@ -8,6 +8,7 @@ authors = ["Oda <oda@xyzzyx.co.jp>"]
 python = "^3.10.4"
 ic-py = "^1.0.0"
 python-dotenv = "^0.20.0"
+pydantic = "^1.9.1"
 
 [tool.poetry.dev-dependencies]
 
