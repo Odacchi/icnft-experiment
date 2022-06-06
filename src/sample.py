@@ -11,7 +11,9 @@ iden = Identity()
 agent = Agent(iden, client)
 
 # Endpoint that we want to pull data from
-function_to_call = 'transactions'
+# https://icscan.io/canister/oeee4-qaaaa-aaaak-qaaeq-cai
+# function_to_call = 'transactions'
+function_to_call = 'getRegistry'
 
 # List of NFTs canisters we want to pull data from
 # You can find it on Entrepot clicking on NFTs 
@@ -60,6 +62,14 @@ for c in canisters:
     response = agent.query_raw(c["id"], function_to_call, params)
 
     print("Getting collection:", c["name"])
+
+    registries = response[0]['value']
+    holders = {}
+    for registry in registries:
+        if registry[1] in holders.keys():
+            holders[registry[1]].append(registry[0])
+        else:
+            holders[registry[1]] = [registry[0]]
 
     total = 0
 
